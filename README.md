@@ -4,6 +4,12 @@
 
 ### Initial situation
 
+With the rapid development of artificial intelligence systems, especially large language models (LLMs) and their ability to process natural language, various applications of this technology seem possible in almost any field. The financial sector, which has large amounts of information at its disposal, could benefit from this development by further simplifying the extraction and analysis of relevant data to streamline operations, enhance decision-making, and improve customer experiences. This also applies to sustainable investing, an area that is becoming increasingly important as investors seek greater transparency and accountability in sustainability practices of companies they invest in.
+
+The present repository provides a prototype to create a company ranking of the 17 SDGs for each of the companies underlying two exemplary Swiss investment funds. For this purpose, company-specific information is extracted from public websites and subsequently analysed using LLMs from OpenAI to assess its relevance to each of the SDGs.
+
+It is evident that the developed prototype does not address the underlying issues of lack of progress on the SDG targets. However, it could facilitate the review of SDG alignment for specific companies and investment funds, potentially validating corresponding SDG assessments and providing transparency for investors.
+
 ### Prototype description
 
 ### Testing the prototype 
@@ -11,3 +17,4 @@
 ### Known issues of the prototype
 
 ### Related report
+The report was published on the [HSLU Retailbanking Blog](upadte-link) and is available publicly. 
