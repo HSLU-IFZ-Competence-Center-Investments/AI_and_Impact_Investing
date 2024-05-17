@@ -23,7 +23,7 @@ The demo can be accessed locally by [forking the repository](https://docs.github
 - In an existing environment you can install packages using the following terminal command: pip install -r requirements.txt
 - Please consult this guide if you are unsure how to set up a [new environment](https://realpython.com/python-virtual-environments-a-primer/#create-it).
 
-When starting run.py, you will be asked to enter an [OpenAI API key](https://platform.openai.com/account/api-keys), since the prototype runs with the paid LLM ChatGPT-4-turbo. However, the used model chan also be changed in the chat.py file.
+When starting run.py, you will be asked to enter an [OpenAI API key](https://platform.openai.com/account/api-keys), since the prototype runs with the paid LLM ChatGPT-4-turbo. However, the used model can also be changed in the chat.py file.
 
 Furthermore; COMPANIES
 
