@@ -1,6 +1,6 @@
 # AI and Impact Investing
 
-![Cover.jpg](https://github.com/HSLU-IFZ-Competence-Center-Investments/AI_and_Impact_Investing/blob/main/Cover_small.jpg)
+![Cover.jpg]()
 
 ### Initial situation
 
