@@ -17,4 +17,4 @@ It is evident that the developed prototype does not address the underlying issue
 ### Known issues of the prototype
 
 ### Related report
-The report was published on the [HSLU Retailbanking Blog](upadte-link) and is available publicly. 
+The report was published on the [HSLU Retailbanking Blog](link) and is available publicly. 
