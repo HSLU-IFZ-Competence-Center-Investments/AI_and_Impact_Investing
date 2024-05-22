@@ -17,8 +17,8 @@ class SDGexpert():
     def __init__(self):
         self.directory_path_chat = cfg.PATH.CODE
         self.directory_path = cfg.PATH.PROJECT
-        print(self.directory_path_chat)
-        print(self.directory_path)
+        # print(self.directory_path_chat)
+        # print(self.directory_path)
 
         try:
             self.runs = int(input("How many times should the SDG expert analyse the text files?"))
@@ -42,7 +42,7 @@ class SDGexpert():
         print(self.runs)
 
         # # Website Crawler
-        print('Crawling websites...')
+        # print('Crawling websites...')
         # path 
         base_path = cfg.PATH.CRAWLER 
         data_path = cfg.PATH.DATA 
@@ -73,35 +73,39 @@ class SDGexpert():
         # # create master files
         # cleaning.create_master_files(data_path)
 
-        # # get API key
-        # self.API_key()
-        # # # runs chat.py runs times to create the bot's analysis
-        # print('Running virtual assistant...')
-        # for _ in tqdm(range(self.runs)):
-        #     subprocess.run(["python", self.directory_path_chat + "/chat.py", self.directory_path], input=self.directory_path.encode())
-        
-        # # # run aggregate_OOP.py to aggregate the text files
-        # print('Aggregating text files...')
-        # path = cfg.PATH.SDG_OUTPUT
-        # output_path = cfg.PATH.SDG_OUTPUT_AGGREGATED
+        # get API key
+        self.API_key()
+        # # runs chat.py runs times to create the bot's analysis
+        print('Running virtual assistant...')
+        for _ in tqdm(range(self.runs)):
+            subprocess.run(["python", self.directory_path_chat + "/chat.py", self.directory_path], input=self.directory_path.encode())
+        # for _ in tqdm(range(self.runs)): 
+        #     subprocess.run(["python", self.directory_path_chat + "/chat.py", "--cfg_param1", str(cfg.PATH.SDG_OUTPUT), "--cfg_param2", str(cfg.PATH.ERR_OUTPUT)]) # "--directory_path", self.directory_path,
 
-        # file_counter = aggregate.FileCounter(path)
-        # min_value, valid_files_dict = file_counter.count_files()
-        # # min_value = 100 # if fixed number of documents should be considered
-        # sdg_data_analyzer = aggregate.SDGDataAnalyzer(path, min_value, valid_files_dict)
-        # sdg_data_analyzer.analyze_data()
-        # # save to csv
-        # csv_writer = aggregate.CSVWriter(output_path)
-        # csv_writer.save_to_csv(sdg_data_analyzer.company_dict_q2, '_Q2')
-        # csv_writer.save_to_csv(sdg_data_analyzer.company_dict_q3, '_Q3')
-        # # differences question 2 and question 3
-        # differences_q2_q3 = pd.DataFrame(sdg_data_analyzer.differences_q2_q3)
-        # differences_q2_q3.to_csv(os.path.join(output_path, 'differences_q2_q3.csv'))
-        # # save to txt
-        # with open(os.path.join(output_path, 'company_dict_q2.txt'), 'w') as f:
-        #     f.write(str(sdg_data_analyzer.company_dict_q2))
-        # with open(os.path.join(output_path, 'company_dict_q3.txt'), 'w') as f:
-        #     f.write(str(sdg_data_analyzer.company_dict_q3))
+
+        
+        # # run aggregate_OOP.py to aggregate the text files
+        print('Aggregating text files...')
+        path = cfg.PATH.SDG_OUTPUT
+        output_path = cfg.PATH.SDG_OUTPUT_AGGREGATED
+
+        file_counter = aggregate.FileCounter(path)
+        min_value, valid_files_dict = file_counter.count_files()
+        # min_value = 100 # if fixed number of documents should be considered
+        sdg_data_analyzer = aggregate.SDGDataAnalyzer(path, min_value, valid_files_dict)
+        sdg_data_analyzer.analyze_data()
+        # save to csv
+        csv_writer = aggregate.CSVWriter(output_path)
+        csv_writer.save_to_csv(sdg_data_analyzer.company_dict_q2, '_Q2')
+        csv_writer.save_to_csv(sdg_data_analyzer.company_dict_q3, '_Q3')
+        # differences question 2 and question 3
+        differences_q2_q3 = pd.DataFrame(sdg_data_analyzer.differences_q2_q3)
+        differences_q2_q3.to_csv(os.path.join(output_path, 'differences_q2_q3.csv'))
+        # save to txt
+        with open(os.path.join(output_path, 'company_dict_q2.txt'), 'w') as f:
+            f.write(str(sdg_data_analyzer.company_dict_q2))
+        with open(os.path.join(output_path, 'company_dict_q3.txt'), 'w') as f:
+            f.write(str(sdg_data_analyzer.company_dict_q3))
 
         # # # run results.py to get the final results
         # print('Analyzing results...')

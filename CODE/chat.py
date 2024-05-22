@@ -1,7 +1,8 @@
 from utils.chatutils import AssistantSession
 from utils.datamanager import get_companyfilepaths
 from datetime import datetime
-from configs.misc_config import cfg
+# from CODE.configs.__config import cfg
+from configs.__config import cfg
 import os
 
 
@@ -14,6 +15,8 @@ instruction = "You are a sustainable development goals expert. If asked for, ans
 
 
 if __name__ == "__main__":
+
+    # setup assistant
 
     run_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
@@ -52,7 +55,7 @@ if __name__ == "__main__":
             assistant_session.chat("Purely based on the information in the files, which SDGs arguably does the company have in the focus?")
             assistant_session.chat("If you had to, how would you rank these against each other in terms of how prominent they seem to be in the company's self-presentation based on the information provided to you.")
             
-            savefolder_path = os.path.join(cfg.PATH.SDG_OUTPUT,company_foldername)
+            savefolder_path = os.path.join(cfg.PATH.SDG_OUTPUT, company_foldername) # cfg.PATH.SDG_OUTPUT
             if not os.path.exists(savefolder_path):
                 os.makedirs(savefolder_path)
             assistant_session.save(savefolder_path)
