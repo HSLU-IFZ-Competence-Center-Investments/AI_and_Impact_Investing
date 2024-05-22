@@ -112,6 +112,7 @@ class SDGexpert():
 
         # anonymised graphic current run
         results.anonymised_graphic()
+        results.grid_graphic()
 
 
 if __name__ == "__main__":
