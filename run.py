@@ -111,7 +111,6 @@ class SDGexpert():
         current_run = {'model':'GPT 3.5 Turbo', 'path':str(cfg.PATH.SDG_OUTPUT_AGGREGATED).replace("\\","/"), 'temperature': 0.01}
 
         # anonymised graphic current run
-        results.anonymised_graphic()
         results.grid_graphic()
 
 
