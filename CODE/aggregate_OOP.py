@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from tqdm import tqdm
-import regex as re
+import re
 # from configs.misc_config import cfg # only if run alone
 import copy
 
