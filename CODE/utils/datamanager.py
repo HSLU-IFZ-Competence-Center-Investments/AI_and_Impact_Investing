@@ -1,7 +1,7 @@
 import os
 # from configs.misc_config import cfg # only if run alone
 # from CODE.configs.__config import cfg
-from configs.__config import cfg
+# from configs.__config import cfg
 
 company_foldernames = ["nestle.com", "pilatus-aircraft.com", "roche.com", "swiss.com", "swisscom.com-en-residential", "swiss-re.com"]
 

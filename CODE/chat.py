@@ -1,3 +1,6 @@
+# import sys
+# sys.path.append('C:/Users/levin/Documents/IFZ/GitHub/AI_and_Impact_Investing')
+
 from utils.chatutils import AssistantSession
 from utils.datamanager import get_companyfilepaths
 from datetime import datetime
