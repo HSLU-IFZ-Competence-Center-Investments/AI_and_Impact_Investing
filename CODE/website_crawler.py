@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from bs4 import BeautifulSoup as bs
 import requests
-from configs.__config import cfg # only if run alone
+# from configs.__config import cfg # only if run alone
 from tqdm import tqdm
 
 

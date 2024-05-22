@@ -9,11 +9,11 @@ import gzip
 
 
 def cleaning_documents(data_path):
-    directory = os.path.join(data_path, '3_Websites/Texts_copy')
+    directory = os.path.join(data_path, '3_Websites', 'Texts')
     # list folders in directory
     folders = [f for f in os.listdir(directory) if os.path.isdir(os.path.join(directory, f))]
     # create directory for cleaned folders; r'C:\Users\levin\Documents\IFZ\AI_Impact\3_Websites\Texts_cleaned'
-    cleaned_directory = os.path.join(data_path, '3_Websites/Texts_cleaned')
+    cleaned_directory = os.path.join(data_path, '3_Websites', 'Texts_cleaned')
     if not os.path.exists(cleaned_directory):
         os.makedirs(cleaned_directory)
 
@@ -75,7 +75,7 @@ def cleaning_documents(data_path):
 def create_master_files(data_path):
     cleaned_directory = os.path.join(data_path, '3_Websites/Texts_cleaned')
     # create master_files folder in cleaned directory
-    if not os.path.exists(os.path.join(cleaned_directory, 'master_files')):
+    if not os.path.exists(os.path.join(cleaned_directory, '1_master_files')):
         os.makedirs(os.path.join(cleaned_directory, '1_master_files'))
     # loop trough folders in cleaned directory and create master pdfs
     folders = [f for f in os.listdir(cleaned_directory) if os.path.isdir(os.path.join(cleaned_directory, f))]
@@ -114,7 +114,7 @@ if __name__ == '__main__':
 
     data_path = cfg.PATH.DATA 
     # read websites.csv
-    websites = pd.read_csv(os.path.join(data_path, 'Carbon_Fund_websites.csv'), sep=';', encoding='utf-8') 
+    websites = pd.read_csv(os.path.join(data_path, 'Fund_1_websites.csv'), sep=';', encoding='utf-8') # Fund 1 or 2
     # drop rows with NaN values
     websites = websites.dropna()
     # clean documents

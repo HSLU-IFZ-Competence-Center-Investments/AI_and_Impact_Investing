@@ -6,7 +6,7 @@ import os
 
 
 # ALL COMPANIES:
-company_foldernames = [""]
+company_foldernames = ["nestle.com", "pilatus-aircraft.com", "roche.com", "swiss.com", "swisscom.com-en-residential", "swiss-re.com"]
 
 model = "gpt-3.5-turbo" # "gpt-4-turbo"
 gpt_name = "SDG expert"
@@ -20,7 +20,7 @@ if __name__ == "__main__":
     errors = []
 
     # with open('./CODE/key.txt', 'r') as file:
-    with open('./CODE/key.txt', 'r') as file: # path to the key.txt file
+    with open('./key.txt', 'r') as file: # path to the key.txt file
         # Read the entire content of the file
         api_key = file.read()
 
@@ -30,6 +30,7 @@ if __name__ == "__main__":
         
         try: 
             file_paths = get_companyfilepaths(company_foldername)
+            print(file_paths)
             if len(file_paths) == 0:
                 print(f"No files found for {company_foldername}. Skipping.")
                 errors.append((company_foldername, "No files found."))
