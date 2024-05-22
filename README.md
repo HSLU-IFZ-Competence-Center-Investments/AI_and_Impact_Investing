@@ -14,11 +14,11 @@ It is evident that the developed prototype does not address the underlying issue
 
 The prototype's design and task flow are illustrated in the figure below, displaying its four main components to generate SDG rankings. Firstly, the underlying companies of two private equity funds were identified and the domains of their public websites, which provide the data source for creating the desired ranking, were collected. Secondly, a web scraping module gathered the public information of the websites as HTML files and extracted the text components. After applying data-preparation measures to the saved text files, the company information was fed to a GPT assistant (OpenAI Assistant API v1) in the third step. For example, the individual text files of each company were combined into one larger text file, including the page names as headers, to comply with the maximum of 20 files for each session of the assistant. The AI assistant, acting as an SDG expert, was asked to review the text files of each company, indicating which information is deemed relevant and to finally return a SDG ranking for each entity. For this step, multiple prompting approaches were tested to obtain the desired ranking on the basis of the available, non-SDG-specific information. 
 
-![Prototype_Architecture.JPG](https://github.com/HSLU-IFZ-Competence-Center-Investments/AI_and_Impact_Investing/blob/main/DATA/Images/Prototype_Architecture.JPG)
+![Prototype_Architecture.JPG](https://github.com/HSLU-IFZ-Competence-Center-Investments/AI_and_Impact_Investing/blob/main/DATA/Images/Prototype_Architecture.jpg)
 
 ### Testing the prototype 
 
-The demo can be accessed locally by [forking the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo), installing the packages indicated in requirements.txt and running the file run.py. If you have not worked with GitHub before, [set up Git](https://docs.github.com/en/get-started/quickstart/set-up-git) first.
+The demo can be accessed locally by [forking the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo), installing the packages indicated in requirements.txt with the latest version of Python and running the file run.py. If you have not worked with GitHub before, [set up Git](https://docs.github.com/en/get-started/quickstart/set-up-git) first.
 
 - In an existing environment you can install packages using the following terminal command: pip install -r requirements.txt
 - Please consult this guide if you are unsure how to set up a [new environment](https://realpython.com/python-virtual-environments-a-primer/#create-it).
