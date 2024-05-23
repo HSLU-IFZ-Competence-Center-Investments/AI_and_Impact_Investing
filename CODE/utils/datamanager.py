@@ -1,14 +1,16 @@
 import os
 from CODE.configs.__config import cfg
 
-company_foldernames = ["Company 1", "Company 2"]
+company_foldernames = ["Company 1", "Company 2", "Company 3", "Company 4"]
 
-fund_1 = ["Company 1"] 
-fund_2 = ["Company 2"] 
+fund_1 = ["Company 1", "Company 3"] 
+fund_2 = ["Company 2", "Company 4"] 
 
 company_website_to_name = {
     "Website 1": "Company 1",
-    "Website 2": "Company 2"
+    "Website 2": "Company 2",
+    "Website 3": "Company 3",
+    "Website 4": "Company 4"
 }
 
 def from_companyname_to_website(company_name):
