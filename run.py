@@ -1,15 +1,9 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 import os
-import subprocess
+from CODE.chat import main as chat_main
 from tqdm import tqdm
 import openai, re
 from CODE.configs.__config import cfg
-from CODE.utils.datamanager import company_foldernames, fund_1, fund_2, company_website_to_name
-from CODE.utils.datamanager import from_companyname_to_website, from_website_to_companyname, get_companyfilepaths
-from CODE.utils.plotter import plotter
-import CODE.website_crawler as websiteCrawler
-import CODE.cleaning as cleaning
 import CODE.aggregate_OOP as aggregate
 import CODE.results as results
 
@@ -78,7 +72,8 @@ class SDGexpert():
         # # runs chat.py runs times to create the bot's analysis
         print('Running virtual assistant...')
         for _ in tqdm(range(self.runs)):
-            subprocess.run(["python", self.directory_path_chat + "/chat.py", self.directory_path], input=self.directory_path.encode())
+            chat_main()
+
         # for _ in tqdm(range(self.runs)): 
         #     subprocess.run(["python", self.directory_path_chat + "/chat.py", "--cfg_param1", str(cfg.PATH.SDG_OUTPUT), "--cfg_param2", str(cfg.PATH.ERR_OUTPUT)]) # "--directory_path", self.directory_path,
 

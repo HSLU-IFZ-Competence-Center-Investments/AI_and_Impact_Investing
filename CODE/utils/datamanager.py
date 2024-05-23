@@ -1,7 +1,5 @@
 import os
-# from configs.misc_config import cfg # only if run alone
-# from CODE.configs.__config import cfg
-# from configs.__config import cfg
+from CODE.configs.__config import cfg
 
 company_foldernames = ["Company 1", "Company 2"]
 

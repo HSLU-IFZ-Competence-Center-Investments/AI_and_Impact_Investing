@@ -1,11 +1,11 @@
 # import sys
 # sys.path.append('C:/Users/levin/Documents/IFZ/GitHub/AI_and_Impact_Investing')
 
-from utils.chatutils import AssistantSession
-from utils.datamanager import get_companyfilepaths
+from CODE.utils.chatutils import AssistantSession
+from CODE.utils.datamanager import get_companyfilepaths,cfg
 from datetime import datetime
 # from CODE.configs.__config import cfg
-from configs.__config import cfg
+# from configs.__config import cfg
 import os
 
 
@@ -17,8 +17,7 @@ gpt_name = "SDG expert"
 instruction = "You are a sustainable development goals expert. If asked for, answer questions based on the information in the files provided to you."
 
 
-if __name__ == "__main__":
-
+def main():
     # setup assistant
 
     run_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -26,6 +25,7 @@ if __name__ == "__main__":
     errors = []
 
     # with open('./CODE/key.txt', 'r') as file:
+    # if key.txt is not present create it
     with open('./key.txt', 'r') as file: # path to the key.txt file
         # Read the entire content of the file
         api_key = file.read()
@@ -81,3 +81,6 @@ if __name__ == "__main__":
     f.close()
 
     print(f"Error log saved to {err_output_folder}")
+
+if __name__ == "__main__":
+    main()
