@@ -2,10 +2,6 @@ import os
 import pandas as pd
 from tqdm import tqdm
 import re
-import pdfkit
-from bs4 import BeautifulSoup
-import gzip
-# from configs.__config import cfg
 
 
 def cleaning_documents(data_path):

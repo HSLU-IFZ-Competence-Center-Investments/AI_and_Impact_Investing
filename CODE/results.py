@@ -9,7 +9,6 @@ from CODE.configs.__config import cfg
 # from utils.plotter import plotter # only if run alone
 from CODE.utils.datamanager import fund_1, fund_2, company_website_to_name
 # from utils.datamanager import fund_1, fund_2, company_website_to_name
-from scipy.stats import ttest_rel
 from matplotlib.colors import LinearSegmentedColormap
 import os
 
