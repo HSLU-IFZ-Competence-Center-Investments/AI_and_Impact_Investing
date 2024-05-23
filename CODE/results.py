@@ -12,6 +12,10 @@ from CODE.utils.datamanager import fund_1, fund_2
 from matplotlib.colors import LinearSegmentedColormap
 import os
 
+
+colors = ['#F8F8F8', '#DAEEF3', '#BAE0EA', '#77C5D8', '#449DC2', '#206A8A', '#0D4F6E', '#0A3C57', '#072A40']
+
+
 def get_ranks(company_name=None, run=None):
     if run is None:
         path = cfg.PATH.SDG_OUTPUT_AGGREGATED
@@ -41,13 +45,61 @@ def get_ranks(company_name=None, run=None):
     if company_name is None: return df_q3_rank
     else: return df_q3_rank.loc[company_name]
     
+def _grid_graphic(result,fund_names:list[str],fig,ax):
+
+    _data = result.loc[fund_names].groupby(level=0).median()
+    # set zero values to nan
+    _data = _data.replace(0, np.nan)
+    _data = _data.rank(axis=1, method='max', ascending=True) # False if scaled after
+    _data = _data.fillna(0)
+    _data = _data.loc[sorted(fund_names), _data.sum(axis=0).sort_values(ascending=False).index]
+
+    # Code for fund_names
+    _result_dicts = _data.groupby(level=0).median().apply(lambda x: {i: k for i, k in zip(x.index, x.values) if k > 0}, axis=1)
+    _temp_min = []
+    _temp_max = []
+
+    for i in _result_dicts:
+        if len(i) == 0:
+            continue
+        _temp_min.append(min(i.values()))
+        _temp_max.append(max(i.values()))
+
+    _temp_min = int(min(_temp_min)) 
+    _temp_max = int(max(_temp_max)) 
+    _N_colors = _temp_max - _temp_min + 1 + 1
+
+    _cmap_name = 'custom_colormap'
+    _cm = LinearSegmentedColormap.from_list(_cmap_name, colors, N=_N_colors)
+
+    _ticks = np.array(list(set(_data.apply(pd.unique).apply(list).sum()))) # Generate ticks
+
+    # dummy_range = np.arange(0, len(_ticks), 1)
+    dummy_data = _data.replace(0,_temp_min-1)
+    dummy_ticks = np.array(list(set(dummy_data.apply(pd.unique).apply(list).sum()))) 
+    heatmap = ax.imshow(_data, cmap=_cm, vmin=np.min(dummy_data) - 0.5, vmax=np.max(dummy_data) + 0.5)
+    cbar= fig.colorbar(heatmap, ax=ax, ticks=dummy_ticks, label='Score')  # Use specified ticks
+    _tick_labels = _ticks + 17 - _ticks.max()
+    _tick_labels = [0] + _tick_labels.astype(int).tolist()[1:]
+    cbar.set_ticklabels(_tick_labels)  # Set tick labels0
+
+    ax.set_xticks(np.arange(len(_data.columns)))
+    ax.set_xticklabels(_data.columns, rotation=90)
+    ax.set_yticks(range(len(_data.index)))
+    ax.set_yticklabels(_data.index)
+    ax.set_xlabel('SDGs')
+    ax.set_ylabel('Companies')
+
+    for position in np.arange(.5, len(_data.columns), 1):
+        ax.axvline(x=position, color='gray', linestyle='--', linewidth=0.2)
+
+    for position in np.arange(.5, len(_data.index), 1):
+        ax.axhline(y=position, color='gray', linestyle='--', linewidth=0.2)
 
 def grid_graphic():
 
     # PLOT
     # Define hex colors
-    colors = ['#F8F8F8', '#DAEEF3', '#BAE0EA', '#77C5D8', '#449DC2', '#206A8A', '#0D4F6E', '#0A3C57', '#072A40']
-
     # data for current run
     df_4 = get_ranks()
     df_4 = df_4.fillna(18).apply(lambda x: (18-x.astype(int))).groupby(level=0)
@@ -57,109 +109,12 @@ def grid_graphic():
     # filter out values which are equal/greater 4 times the iqr
     result = df_4.apply(lambda x: x.where(iqr <= 4, 0))
 
-    growth_data = result.loc[fund_1].groupby(level=0).median()
-    # set zero values to nan
-    growth_data = growth_data.replace(0, np.nan)
-    growth_data = growth_data.rank(axis=1, method='max', ascending=True) # False if scaled after
-    growth_data = growth_data.fillna(0)
-    growth_data = growth_data.loc[sorted(fund_1), growth_data.sum(axis=0).sort_values(ascending=False).index]
+    # make 2 axes
+    fig, axs = plt.subplots(1, 2, figsize=(20, 10))
 
-    # Code for fund_1
-    growth_result_dicts = growth_data.groupby(level=0).median().apply(lambda x: {i: k for i, k in zip(x.index, x.values) if k > 0}, axis=1)
-    growth_temp_min = []
-    growth_temp_max = []
+    for i, fund in enumerate([fund_1, fund_2]):
+        _grid_graphic(result, fund, fig, axs[i])
 
-    for i in growth_result_dicts:
-        if len(i) == 0:
-            continue
-        growth_temp_min.append(min(i.values()))
-        growth_temp_max.append(max(i.values()))
-
-    growth_temp_min = int(min(growth_temp_min)) 
-    growth_temp_max = int(max(growth_temp_max)) 
-    growth_N_colors = growth_temp_max - growth_temp_min + 1 + 1
-
-    # Code for fund_2
-
-    carbon_data = result.loc[fund_2].groupby(level=0).median()
-    # set zero values to nan
-    carbon_data = carbon_data.replace(0, np.nan)
-    carbon_data = carbon_data.rank(axis=1, method='max', ascending=True) # False if scaled after
-    carbon_data = carbon_data.fillna(0)
-    carbon_data = carbon_data.loc[sorted(fund_2), carbon_data.sum(axis=0).sort_values(ascending=False).index]
-
-    carbon_result_dicts = carbon_data.groupby(level=0).median().apply(lambda x: {i: k for i, k in zip(x.index, x.values) if k > 0}, axis=1)
-    carbon_temp_min = []
-    carbon_temp_max = []
-
-    for i in carbon_result_dicts:
-        if len(i) == 0:
-            continue
-        carbon_temp_min.append(min(i.values()))
-        carbon_temp_max.append(max(i.values()))
-
-    carbon_temp_min = int(min(carbon_temp_min)) + 1
-    carbon_temp_max = int(max(carbon_temp_max)) + 1
-    carbon_N_colors = carbon_temp_max - carbon_temp_min + 1 + 1
-
-    # Set up subplots
-    fig, axs = plt.subplots(1, 2, figsize=(16, 6))
-
-    # Generate Fund 1 heatmap
-    growth_cmap_name = 'custom_colormap'
-    growth_cm = LinearSegmentedColormap.from_list(growth_cmap_name, colors, N=(growth_N_colors))
-
-    growth_ticks = np.arange(np.min(growth_data), np.max(growth_data)+1)  # Generate ticks
-    heatmap_growth = axs[0].imshow(growth_data, cmap=growth_cm, vmin=np.min(growth_data) - 0.5, vmax=np.max(growth_data) + 0.5)
-    cbar_growth = fig.colorbar(heatmap_growth, ax=axs[0], ticks=growth_ticks, label='Score')  # Use specified ticks
-    growth_tick_labels = growth_ticks + 17 - growth_ticks.max()
-    growth_tick_labels = [0] + growth_tick_labels.astype(int).tolist()[1:]
-    cbar_growth.set_ticklabels(growth_tick_labels)  # Set tick labels0
-
-    axs[0].set_xticks(np.arange(len(growth_data.columns)))
-    axs[0].set_xticklabels(growth_data.columns, rotation=90)
-    axs[0].set_yticks(range(len(growth_data.index)))
-    axs[0].set_yticklabels(growth_data.index)
-    axs[0].set_xlabel('SDGs')
-    axs[0].set_ylabel('Companies')
-
-    # Generate Fund 1 heatmap
-    carbon_cmap_name = 'custom_colormap'
-    carbon_cm = LinearSegmentedColormap.from_list(carbon_cmap_name, colors, N=(carbon_N_colors))
-
-    carbon_ticks = np.arange(np.min(carbon_data), np.max(carbon_data)+1)  # Generate ticks
-    heatmap_carbon = axs[1].imshow(carbon_data, cmap=carbon_cm, vmin=np.min(carbon_data) - 0.5, vmax=np.max(carbon_data) + 0.5)
-    cbar_carbon = fig.colorbar(heatmap_carbon, ax=axs[1], ticks=carbon_ticks, label='Score')  # Use specified ticks
-    carbon_tick_labels = carbon_ticks + 17 - carbon_ticks.max()
-    carbon_tick_labels = [0] + carbon_tick_labels.astype(int).tolist()[1:]
-    cbar_carbon.set_ticklabels(carbon_tick_labels)  # Set tick labels0
-
-    axs[1].set_xticks(np.arange(len(carbon_data.columns)))
-    axs[1].set_xticklabels(carbon_data.columns, rotation=90)
-    axs[1].set_yticks(range(len(carbon_data.index)))
-    axs[1].set_yticklabels(carbon_data.index)
-    axs[1].set_xlabel('SDGs')
-    axs[1].set_ylabel('Companies')
-
-    # add title Fund 2 on top of first heatmap
-    axs[0].set_title('Fund 1')
-    axs[1].set_title('Fund 2')
-
-
-    for position in np.arange(.5, len(growth_data.columns), 1):
-        axs[0].axvline(x=position, color='gray', linestyle='--', linewidth=0.2)
-    
-    
-    for position in np.arange(.5, len(carbon_data.columns), 1):
-        axs[1].axvline(x=position, color='gray', linestyle='--', linewidth=0.2)
-
-    for position in np.arange(.5, len(growth_data.index), 1):
-        axs[0].axhline(y=position, color='gray', linestyle='--', linewidth=0.2)
-        # if position < 10: axs[1].axhline(y=position, color='gray', linestyle='--', linewidth=0.2)
-
-    for position in np.arange(.5, len(carbon_data.index), 1):
-        axs[1].axhline(y=position, color='gray', linestyle='--', linewidth=0.2)
-        # if position < 10: axs[1].axhline(y=position, color='gray', linestyle='--', linewidth=0.2)
 
     plt.tight_layout()
 
@@ -167,7 +122,7 @@ def grid_graphic():
     # if folder does not exist, create it
     if not os.path.exists(cfg.PATH.OUTPUT_PLOT):
         os.makedirs(cfg.PATH.OUTPUT_PLOT)
-    fig.savefig(os.path.join(cfg.PATH.OUTPUT_PLOT, 'grid_graphic.png'), dpi=300, bbox_inches='tight')
+    # fig.savefig(os.path.join(cfg.PATH.OUTPUT_PLOT, 'grid_graphic_{}.png'), dpi=300, bbox_inches='tight')
 
     plt.show()
 
