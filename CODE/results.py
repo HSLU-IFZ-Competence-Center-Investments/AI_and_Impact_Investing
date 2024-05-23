@@ -110,6 +110,7 @@ def grid_graphic():
     growth_cm = LinearSegmentedColormap.from_list(growth_cmap_name, colors, N=(growth_N_colors))
 
     growth_ticks = np.arange(np.min(growth_data), np.max(growth_data)+1)  # Generate ticks
+    growth_ticks += 17-growth_ticks.max()
     heatmap_growth = axs[0].imshow(growth_data, cmap=growth_cm, vmin=np.min(growth_data) - 0.5, vmax=np.max(growth_data) + 0.5)
     cbar_growth = fig.colorbar(heatmap_growth, ax=axs[0], ticks=growth_ticks, label='Score')  # Use specified ticks
     cbar_growth.set_ticklabels([0]+growth_ticks.astype(int).tolist()[1:])  # Set tick labels0
@@ -126,6 +127,7 @@ def grid_graphic():
     carbon_cm = LinearSegmentedColormap.from_list(carbon_cmap_name, colors, N=(carbon_N_colors))
 
     carbon_ticks = np.arange(np.min(carbon_data), np.max(carbon_data)+1)  # Generate ticks
+    carbon_ticks += 17-carbon_ticks.max()
     heatmap_carbon = axs[1].imshow(carbon_data, cmap=carbon_cm, vmin=np.min(carbon_data) - 0.5, vmax=np.max(carbon_data) + 0.5)
     cbar_growth = fig.colorbar(heatmap_carbon, ax=axs[1], ticks=carbon_ticks, label='Score')  # Use specified ticks
     cbar_growth.set_ticklabels([0]+carbon_ticks.astype(int).tolist()[1:])  # Set tick labels0
