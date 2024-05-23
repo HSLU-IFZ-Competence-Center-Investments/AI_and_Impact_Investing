@@ -23,7 +23,9 @@ The demo can be accessed locally by [forking the repository](https://docs.github
 - In an existing environment you can install packages using the following terminal command: pip install -r requirements.txt
 - Please consult this guide if you are unsure how to set up a [new environment](https://realpython.com/python-virtual-environments-a-primer/#create-it).
 
-The run.py file imports and executes the different modules needed to generate the SDG analysis. However, as only dummy funds and companies are used, the imported websiteCrawler and cleaning modules, are not executed. The informative data for the dummy companies was created using GPT-4o-Turbo asking "can you write me a general company description but also with some sustainability information about a fictional swiss company", and it is stored as a text file in the DATA/CRAWLER/1_master_files folder.
+The run.py file imports and executes the different modules needed to generate the SDG analysis. However, as only dummy funds and companies are used, the imported websiteCrawler and cleaning module, are not executed. The informative data for the dummy companies was created using GPT-4o-Turbo asking "can you write me a general company description but also with some sustainability information about a fictional swiss company", and it is stored as a text file in the DATA/CRAWLER/1_master_files folder.
+
+If one wants to repurpose the prototype to analyse different fund companies, such have to be indicated in the DATA folder; specifically the Fund_1_websites.csv and Fund_2_websites.csv need to be edited. Furthermore, the SCRAPE variable has to be set to True in the config.py file.
 
 When starting run.py, you will be asked to enter an [OpenAI API key](https://platform.openai.com/account/api-keys), since the prototype runs with the paid LLM ChatGPT-3.5-turbo. However, the used model can also be changed in the chat.py file. Furthermore, the script will ask you how many times the virtual SDG expert should review the documents. After reviewing the document the prototype creates an output plot in the folder CODE/output/plots.
 
