@@ -7,7 +7,7 @@ sys.path.append('..')
 from CODE.configs.__config import cfg
 # from utils.datamanager import * # only if run alone
 # from utils.plotter import plotter # only if run alone
-from CODE.utils.datamanager import fund_1, fund_2, company_website_to_name
+from CODE.utils.datamanager import fund_1, fund_2
 # from utils.datamanager import fund_1, fund_2, company_website_to_name
 from matplotlib.colors import LinearSegmentedColormap
 import os
@@ -59,7 +59,7 @@ def grid_graphic():
 
     growth_data = result.loc[fund_1].groupby(level=0).median()
     # set zero values to nan
-    growth_data = growth_data.replace(1, np.nan)
+    growth_data = growth_data.replace(0, np.nan)
     growth_data = growth_data.rank(axis=1, method='max', ascending=True) # False if scaled after
     growth_data = growth_data.fillna(0)
     growth_data = growth_data.loc[sorted(fund_1), growth_data.sum(axis=0).sort_values(ascending=False).index]
@@ -77,13 +77,13 @@ def grid_graphic():
 
     growth_temp_min = int(min(growth_temp_min)) 
     growth_temp_max = int(max(growth_temp_max)) 
-    growth_N_colors = growth_temp_max - growth_temp_min + 1
+    growth_N_colors = growth_temp_max - growth_temp_min + 1 + 1
 
     # Code for fund_2
 
     carbon_data = result.loc[fund_2].groupby(level=0).median()
     # set zero values to nan
-    carbon_data = carbon_data.replace(1, np.nan)
+    carbon_data = carbon_data.replace(0, np.nan)
     carbon_data = carbon_data.rank(axis=1, method='max', ascending=True) # False if scaled after
     carbon_data = carbon_data.fillna(0)
     carbon_data = carbon_data.loc[sorted(fund_2), carbon_data.sum(axis=0).sort_values(ascending=False).index]
@@ -100,7 +100,7 @@ def grid_graphic():
 
     carbon_temp_min = int(min(carbon_temp_min)) + 1
     carbon_temp_max = int(max(carbon_temp_max)) + 1
-    carbon_N_colors = carbon_temp_max - carbon_temp_min + 1
+    carbon_N_colors = carbon_temp_max - carbon_temp_min + 1 + 1
 
     # Set up subplots
     fig, axs = plt.subplots(1, 2, figsize=(16, 6))
@@ -160,7 +160,12 @@ def grid_graphic():
     plt.tight_layout()
 
     # Save the figure
+    # if folder does not exist, create it
+    if not os.path.exists(cfg.PATH.OUTPUT_PLOT):
+        os.makedirs(cfg.PATH.OUTPUT_PLOT)
     fig.savefig(os.path.join(cfg.PATH.OUTPUT_PLOT, 'grid_graphic.png'), dpi=300, bbox_inches='tight')
+
+    plt.show()
 
 
 if __name__ == "__main__":

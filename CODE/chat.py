@@ -10,7 +10,7 @@ import os
 
 
 # ALL COMPANIES:
-company_foldernames = ["Company 1", "Company 2"]
+company_foldernames = ["Company 1", "Company 2","Company 3","Company 4"]
 
 model = "gpt-3.5-turbo" # "gpt-4-turbo"
 gpt_name = "SDG expert"
