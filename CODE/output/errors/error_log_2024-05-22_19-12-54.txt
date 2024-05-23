@@ -1,6 +1,0 @@
-nestle.com: name 'cfg' is not defined
-pilatus-aircraft.com: name 'cfg' is not defined
-roche.com: name 'cfg' is not defined
-swiss.com: name 'cfg' is not defined
-swisscom.com-en-residential: name 'cfg' is not defined
-swiss-re.com: name 'cfg' is not defined

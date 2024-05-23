@@ -6,6 +6,7 @@ from CODE.configs.__config import cfg
 # from utils.datamanager import * # only if run alone
 # from utils.plotter import plotter # only if run alone
 from CODE.utils.datamanager import fund_1, fund_2, company_website_to_name
+# from utils.datamanager import fund_1, fund_2, company_website_to_name
 from scipy.stats import ttest_rel
 from matplotlib.colors import LinearSegmentedColormap
 import os
@@ -31,8 +32,11 @@ def get_ranks(company_name=None, run=None):
         # concatenate the dataframes
         df_q3_rank = pd.concat([df_q3_rank, temp_df], axis=0)
     
+    # print(df_q3_rank.index)
     df_q3_rank.index = df_q3_rank.index.str.split('_').map(lambda x: x[0])
-    df_q3_rank.index = df_q3_rank.index.map(lambda x: company_website_to_name[x])
+    # print(df_q3_rank.index)
+    # df_q3_rank.index = df_q3_rank.index.map(lambda x: company_website_to_name[x]) # not needed if Company names are already in index
+    # print(df_q3_rank.index)
     if company_name is None: return df_q3_rank
     else: return df_q3_rank.loc[company_name]
     
@@ -104,7 +108,7 @@ def grid_graphic():
     # Set up subplots
     fig, axs = plt.subplots(1, 2, figsize=(16, 6))
 
-    # Generate growth fund heatmap
+    # Generate Fund 1 heatmap
     growth_cmap_name = 'custom_colormap'
     growth_cm = LinearSegmentedColormap.from_list(growth_cmap_name, colors, N=(growth_N_colors+1))
     # growth_cm = LinearSegmentedColormap.from_list(growth_cmap_name, colors, N=len(colors))  # Use len(colors) for number of colors
@@ -121,7 +125,7 @@ def grid_graphic():
     axs[0].set_xlabel('SDGs')
     axs[0].set_ylabel('Companies')
 
-    # Generate carbon fund heatmap
+    # Generate Fund 2 heatmap
     carbon_cmap_name = 'custom_colormap'
     # carbon_cm = LinearSegmentedColormap.from_list(carbon_cmap_name, colors, N=carbon_N_colors)
     carbon_cm = LinearSegmentedColormap.from_list(carbon_cmap_name, colors, N=len(colors))  # Use len(colors) for number of colors
@@ -138,9 +142,9 @@ def grid_graphic():
     axs[1].set_xlabel('SDGs')
     axs[1].set_ylabel('Companies')
 
-    # add title Carbon Fund on top of first heatmap
-    axs[0].set_title('Growth Fund')
-    axs[1].set_title('Carbon Fund')
+    # add title Fund 2 on top of first heatmap
+    axs[0].set_title('Fund 1')
+    axs[1].set_title('Fund 2')
 
     for position in np.arange(.5, len(growth_data.columns), 1):
         axs[0].axvline(x=position, color='gray', linestyle='--', linewidth=0.2)
@@ -154,3 +158,7 @@ def grid_graphic():
 
     # Save the figure
     fig.savefig(os.path.join(cfg.PATH.OUTPUT_PLOT, 'grid_graphic.png'), dpi=300, bbox_inches='tight')
+
+
+if __name__ == "__main__":
+    grid_graphic()

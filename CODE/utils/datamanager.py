@@ -1,19 +1,16 @@
 import os
 # from configs.misc_config import cfg # only if run alone
 # from CODE.configs.__config import cfg
+# from configs.__config import cfg
 
-company_foldernames = ["nestle.com", "pilatus-aircraft.com", "roche.com", "swiss.com", "swisscom.com-en-residential", "swiss-re.com"]
+company_foldernames = ["Company 1", "Company 2"]
 
-fund_1 = ["Swisscom", "Swiss", "Pilatus Aircraft"]
-fund_2 = ["Nestle", "Swiss Re", "Roche"]
+fund_1 = ["Company 1"] 
+fund_2 = ["Company 2"] 
 
 company_website_to_name = {
-    "nestle.com": "Nestle",
-    "pilatus-aircraft.com": "Pilatus Aircraft",
-    "roche.com": "Roche",
-    "swiss.com": "Swiss",
-    "swisscom.com-en-residential": "Swisscom",
-    "swiss-re.com": "Swiss Re"
+    "Website 1": "Company 1",
+    "Website 2": "Company 2"
 }
 
 def from_companyname_to_website(company_name):

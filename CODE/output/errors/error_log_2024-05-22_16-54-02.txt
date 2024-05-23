@@ -1,6 +1,0 @@
-nestle.com: cannot access local variable 'root' where it is not associated with a value
-pilatus-aircraft.com: cannot access local variable 'root' where it is not associated with a value
-roche.com: cannot access local variable 'root' where it is not associated with a value
-swiss.com: cannot access local variable 'root' where it is not associated with a value
-swisscom.com-en-residential: cannot access local variable 'root' where it is not associated with a value
-swissre.com: cannot access local variable 'root' where it is not associated with a value
