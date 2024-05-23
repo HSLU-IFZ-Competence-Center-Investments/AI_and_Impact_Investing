@@ -29,6 +29,7 @@ When starting run.py, you will be asked to enter an [OpenAI API key](https://pla
 
 ### Known issues of the prototype
 
+- The prototype was developped using the version 1 of the OpenAI's Assistant API. For the current version 2, as of 23.05.24, the file upload would need to be changed.
 - The webscraping module works best when using different IP adresses for each request, which can be implemented using a VPN service.
 
 ### Related report
