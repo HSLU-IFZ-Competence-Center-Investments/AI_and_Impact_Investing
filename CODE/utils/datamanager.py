@@ -1,7 +1,6 @@
 import os
 # from configs.misc_config import cfg # only if run alone
 # from CODE.configs.__config import cfg
-# from configs.__config import cfg
 
 company_foldernames = ["nestle.com", "pilatus-aircraft.com", "roche.com", "swiss.com", "swisscom.com-en-residential", "swiss-re.com"]
 
@@ -43,4 +42,3 @@ def get_companyfilepaths(company_foldername):
                     # overwrite file_paths with the file path of the company_foldername
                     file_paths = [os.path.join(root, file)]
     return file_paths
-
