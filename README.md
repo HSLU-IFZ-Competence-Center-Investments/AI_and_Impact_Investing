@@ -35,4 +35,4 @@ When starting run.py, you will be asked to enter an [OpenAI API key](https://pla
 - The webscraping module works best when using different IP addresses for each request, which can be implemented using a VPN service.
 
 ### Related report
-The report was uploaded to the [repository]([https://github.com/HSLU-IFZ-Competence-Center-Investments/AI_and_Impact_Investing/blob/main/IFZ_AI_and_Impact_Investing.pdf]) and is available publicly. 
+The report was uploaded to the [repository](https://github.com/HSLU-IFZ-Competence-Center-Investments/AI_and_Impact_Investing/blob/main/IFZ_AI_and_Impact_Investing.pdf) and is available publicly. 
